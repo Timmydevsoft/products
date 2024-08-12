@@ -43,8 +43,7 @@ const ProductList: React.FC = () => {
   useEffect(
     () => () => {
       fetchData();
-    },
-    []
+    },[]
   );
 
   const dataBase = useSelector((state: any) => state.cart.dataBase);
