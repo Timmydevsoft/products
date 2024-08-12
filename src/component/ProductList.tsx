@@ -5,16 +5,16 @@ import { nanoid } from "nanoid";
 import increase from "../static/icon-increment-quantity.svg";
 import decrease from "../static/icon-decrement-quantity.svg";
 import "../index.css";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { orderAction } from "../store/slice";
 import { Prop, Part } from "../store/mode";
 
 const ProductList: React.FC = () => {
   let initialScreen: number = window.innerWidth;
-  const [data, setData] = React.useState([]);
   const [screeen, setScreen] = React.useState<number>(initialScreen);
   const [error, setError] = React.useState<any>(null);
   const dispatch = useDispatch();
+  const dataBase = useSelector((state:any)=> state.cart.dataBase)
   // const fetchData = async () => {
   //   try {
   //     const response = await axios.get("/data/data.json");
@@ -39,48 +39,39 @@ const ProductList: React.FC = () => {
   //   }
   // };
 
-  const fetchData = () => {
-    // try {
-    axios
-      .get("/data/data.json")
-      .then((response) => {
-        setData(
-          response.data.map((item: Prop) => {
-            return {
-              ...item,
-              totalPrice: item.price,
-              status: false,
-              id: nanoid(),
-              quantity: 1,
-            };
-          })
-        );
-
-        dispatch(
-          orderAction.updateStore(
-            response.data.map((item: Prop) => {
-              return {
-                ...item,
-                totalPrice: item.price,
-                status: false,
-                id: nanoid(),
-                quantity: 1,
-              };
-            })
-          )
-        );
-      })
-      .catch((err) => {
-        setError(err);
-      });
-  };
-
   useEffect(
     () => () => {
-      fetchData();
+      const fetchData = () => {
+        // try {
+        axios
+          .get("/data/data.json")
+          .then((response) => {
+            dispatch(
+              orderAction.updateStore(
+                response.data.map((item: Prop) => {
+                  return {
+                    ...item,
+                    totalPrice: item.price,
+                    status: false,
+                    id: nanoid(),
+                    quantity: 1,
+                  };
+                })
+              )
+            );
+          })
+
+          .catch((err) => {
+            setError(err);
+          });
+      };
+
+      fetchData(); 
     },
-    []
+    [dispatch]
   );
+
+  console.log("working");
 
   useEffect(() => {
     const handleResize = () => {
@@ -115,7 +106,7 @@ const ProductList: React.FC = () => {
       {/* {dataBase.length > 0 ? ( */}
       <div className="container w-full">
         <div className="flex flex-col lg:flex-row items-center gap-4 flex-wrap w-[100%]">
-          {data.map((item: Part, index: number) => {
+          {dataBase.map((item: Part, index: number) => {
             return (
               <div key={index} className="w-[100%] lg:w-[32%]">
                 <div className="rounded-md w-[100%] h-[100%] py-4">
