@@ -6,6 +6,7 @@ const initialState = {
   orderList: [] as Part[],
   openModal: false,
   reset: false,
+  status: "Idle"
 };
 
 const productSlice = createSlice({
@@ -14,6 +15,13 @@ const productSlice = createSlice({
   reducers: {
     updateStore(state, action) {
       state.dataBase = action.payload;
+      state.status = "success"
+    },
+    fetchStart(state){
+      state.status = "loading";
+    },
+    fetchFailure(state){
+      state.status = "failed";
     },
     addOrder(state, action) {
       const newOrder = state.dataBase.find(
