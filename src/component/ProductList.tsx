@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import cart from "../static/icon-add-to-cart.svg";
+// import cart from "../static/icon-add-to-cart.svg";
 import { nanoid } from "nanoid";
-import increase from "../static/icon-increment-quantity.svg";
-import decrease from "../static/icon-decrement-quantity.svg";
+// import increase from "../static/icon-increment-quantity.svg";
+// import decrease from "../static/icon-decrement-quantity.svg";
 import "../index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { orderAction } from "../store/slice";
-import { Prop, Part } from "../store/mode";
+import { Prop, /*Part*/ } from "../store/mode";
 
 const ProductList: React.FC = () => {
   let initialScreen: number = window.innerWidth;
@@ -84,7 +84,7 @@ const ProductList: React.FC = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [screen]);
+  }, [screeen]);
   if(status === "loading"){
     return(
       <div>Loading...</div>
@@ -101,23 +101,38 @@ const ProductList: React.FC = () => {
     return <div>{error}</div>;
   }
 
-  const handleIncrement = (id: string) => {
-    dispatch(orderAction.increment(id));
-  };
+  // const handleIncrement = (id: string) => {
+  //   dispatch(orderAction.increment(id));
+  // };
 
-  const handleDecrement = (id: string) => {
-    dispatch(orderAction.reduceOrderQuantity(id));
-  };
+  // const handleDecrement = (id: string) => {
+  //   dispatch(orderAction.reduceOrderQuantity(id));
+  // };
 
-  const handleCart = (id: string) => {
-    dispatch(orderAction.addOrder(id));
-  };
+  // const handleCart = (id: string) => {
+  //   dispatch(orderAction.addOrder(id));
+  // };
 
   return (
     <div className="w-[100%] lg:w-[70%] overflow-y-scroll scroll">
       <h1 className="text-black text-3xl font-bold">Desserts</h1>
-      {/* {dataBase.length > 0 ? ( */}
-      <div className="container w-full">
+      <div className="text-red-500 text-3xl">Rendered</div>
+      <div className="">
+        {
+          dataBase.map((item:Prop, index:number)=>{
+            return(
+              <div key={index} className="">
+                <p className="text-green-400 text-2xl">{item.name}</p>
+                <p className="text-green-400 text-2xl">{item.image.mobile}</p>
+                <p className="text-green-400 text-2xl">{item.price}</p>
+              </div>
+            )
+          })
+        }
+      </div>
+
+      
+      {/* <div className="container w-full">
         <div className="flex flex-col lg:flex-row items-center gap-4 flex-wrap w-[100%]">
           {dataBase.map((item: Part, index: number) => {
             return (
@@ -187,9 +202,8 @@ const ProductList: React.FC = () => {
             );
           })}
         </div>
-      </div>
-      //
-      {/* ) : null}  */}
+      </div> */}
+     
     </div>
   );
 };
