@@ -14,7 +14,8 @@ const ProductList: React.FC = () => {
   const [screeen, setScreen] = React.useState<number>(initialScreen);
   const [error, setError] = React.useState<any>(null);
   const dispatch = useDispatch();
-  const dataBase = useSelector((state:any)=> state.cart.dataBase)
+  const dataBase = useSelector((state:any)=> state.cart.dataBase);
+  const status = useSelector((state:any)=>state.cart.status);
   // const fetchData = async () => {
   //   try {
   //     const response = await axios.get("/data/data.json");
@@ -42,7 +43,7 @@ const ProductList: React.FC = () => {
   useEffect(
     () => () => {
       const fetchData = () => {
-        // try {
+        dispatch(orderAction.fetchStart());
         axios
           .get("/data/data.json")
           .then((response) => {
@@ -63,6 +64,7 @@ const ProductList: React.FC = () => {
 
           .catch((err) => {
             setError(err);
+            dispatch(orderAction.fetchFailure())
           });
       };
 
@@ -71,18 +73,29 @@ const ProductList: React.FC = () => {
     [dispatch]
   );
 
-  console.log("working");
+  // console.log("working");
 
-  useEffect(() => {
-    const handleResize = () => {
-      setScreen(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setScreen(window.innerWidth);
+  //   };
+  //   window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [screen]);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, [screen]);
+  if(status === "loading"){
+    return(
+      <div>Loading...</div>
+    )
+  }
+
+  if(status === "failed"){
+    return(
+      <div >Failed</div>
+    )
+  }
 
   if (error) {
     return <div>{error}</div>;
