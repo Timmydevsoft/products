@@ -5,15 +5,14 @@ import { nanoid } from "nanoid";
 import increase from "../static/icon-increment-quantity.svg";
 import decrease from "../static/icon-decrement-quantity.svg";
 import "../index.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { orderAction } from "../store/slice";
 import { Prop, Part } from "../store/mode";
 
 const ProductList: React.FC = () => {
   let initialScreen: number = window.innerWidth;
-
+  const [data, setData] = React.useState([]);
   const [screeen, setScreen] = React.useState<number>(initialScreen);
-
   const [error, setError] = React.useState<any>(null);
   const dispatch = useDispatch();
   // const fetchData = async () => {
@@ -42,8 +41,21 @@ const ProductList: React.FC = () => {
 
   const fetchData = () => {
     // try {
-      axios.get("/data/data.json")
-      .then((response=>{
+    axios
+      .get("/data/data.json")
+      .then((response) => {
+        setData(
+          response.data.map((item: Prop) => {
+            return {
+              ...item,
+              totalPrice: item.price,
+              status: false,
+              id: nanoid(),
+              quantity: 1,
+            };
+          })
+        );
+
         dispatch(
           orderAction.updateStore(
             response.data.map((item: Prop) => {
@@ -57,21 +69,18 @@ const ProductList: React.FC = () => {
             })
           )
         );
-       
-      }))
-   .catch (err=>{
-    setError(err);
-   }) 
+      })
+      .catch((err) => {
+        setError(err);
+      });
   };
-
 
   useEffect(
     () => () => {
       fetchData();
-    },[]
+    },
+    []
   );
-
-  const dataBase = useSelector((state: any) => state.cart.dataBase);
 
   useEffect(() => {
     const handleResize = () => {
@@ -83,7 +92,6 @@ const ProductList: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [screen]);
-
 
   if (error) {
     return <div>{error}</div>;
@@ -107,7 +115,7 @@ const ProductList: React.FC = () => {
       {/* {dataBase.length > 0 ? ( */}
       <div className="container w-full">
         <div className="flex flex-col lg:flex-row items-center gap-4 flex-wrap w-[100%]">
-          {dataBase.map((item: Part, index: number) => {
+          {data.map((item: Part, index: number) => {
             return (
               <div key={index} className="w-[100%] lg:w-[32%]">
                 <div className="rounded-md w-[100%] h-[100%] py-4">
@@ -176,7 +184,7 @@ const ProductList: React.FC = () => {
           })}
         </div>
       </div>
-      // 
+      //
       {/* ) : null}  */}
     </div>
   );
