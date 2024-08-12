@@ -8,62 +8,21 @@ import "../index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { orderAction } from "../store/slice";
 import { Prop, Part } from "../store/mode";
+import data from "./data"
 
 const Product: React.FC = () => {
   let initialScreen: number = window.innerWidth;
 
   const [screeen, setScreen] = React.useState<number>(initialScreen);
-  const [loading, setLoading] = React.useState<boolean>(true);
+//   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<any>(null);
   const dispatch = useDispatch();
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await axios.get("/data/data.json");
-
-  //     dispatch(
-  //       orderAction.updateStore(
-  //         response.data.map((item: Prop) => {
-  //           return {
-  //             ...item,
-  //             totalPrice: item.price,
-  //             status: false,
-  //             id: nanoid(),
-  //             quantity: 1,
-  //           };
-  //         })
-  //       )
-  //     );
-  //     setLoading(false);
-  //   } catch (err) {
-  //     console.log(err);
-  //     setError(true);
-  //   }
-  // };
-
+ 
+ 
   const fetchData = () => {
-    // try {
-      axios.get("/data/data.json")
-      .then((response=>{
-        dispatch(
-          orderAction.updateStore(
-            response.data.map((item: Prop) => {
-              return {
-                ...item,
-                totalPrice: item.price,
-                status: false,
-                id: nanoid(),
-                quantity: 1,
-              };
-            })
-          )
-        );
-        setLoading(false);
-      }))
-   .catch (err=>{
-    console.log(err);
-    setError(err);
-   }) 
-  };
+   console.log(data)
+   
+  }; 
 
 
   useEffect(
@@ -85,12 +44,12 @@ const Product: React.FC = () => {
     };
   }, [screen]);
 
-  if (loading) {
-    return <div> Loading...</div>;
-  }
-  if (error) {
-    return <div>{error}</div>;
-  }
+//   if (loading) {
+//     return <div> Loading...</div>;
+//   }
+//   if (error) {
+//     return <div>{error}</div>;
+//   }
 
   const handleIncrement = (id: string) => {
     dispatch(orderAction.increment(id));
@@ -107,7 +66,7 @@ const Product: React.FC = () => {
   return (
     <div className="w-[100%] lg:w-[70%] overflow-y-scroll scroll">
       <h1 className="text-black text-3xl font-bold">Desserts</h1>
-      {dataBase.length > 0 ? (
+      {/* {dataBase.length > 0 ? (
       <div className="container w-full">
         <div className="flex flex-col lg:flex-row items-center gap-4 flex-wrap w-[100%]">
           {dataBase.map((item: Part, index: number) => {
@@ -180,7 +139,7 @@ const Product: React.FC = () => {
         </div>
       </div>
       // 
-      ) : null} 
+      ) : null}  */}
     </div>
   );
 };
