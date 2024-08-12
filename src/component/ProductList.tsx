@@ -13,7 +13,7 @@ const ProductList: React.FC = () => {
   let initialScreen: number = window.innerWidth;
 
   const [screeen, setScreen] = React.useState<number>(initialScreen);
-  const [loading, setLoading] = React.useState<boolean>(true);
+
   const [error, setError] = React.useState<any>(null);
   const dispatch = useDispatch();
   // const fetchData = async () => {
@@ -57,10 +57,9 @@ const ProductList: React.FC = () => {
             })
           )
         );
-        setLoading(false);
+       
       }))
    .catch (err=>{
-    console.log(err);
     setError(err);
    }) 
   };
@@ -85,9 +84,7 @@ const ProductList: React.FC = () => {
     };
   }, [screen]);
 
-  if (loading) {
-    return <div> Loading...</div>;
-  }
+
   if (error) {
     return <div>{error}</div>;
   }
