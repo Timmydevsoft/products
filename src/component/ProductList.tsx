@@ -104,7 +104,7 @@ const ProductList: React.FC = () => {
   return (
     <div className="w-[100%] lg:w-[70%] overflow-y-scroll scroll">
       <h1 className="text-black text-3xl font-bold">Desserts</h1>
-      {dataBase.length > 0 ? (
+      {/* {dataBase.length > 0 ? ( */}
       <div className="container w-full">
         <div className="flex flex-col lg:flex-row items-center gap-4 flex-wrap w-[100%]">
           {dataBase.map((item: Part, index: number) => {
@@ -177,7 +177,7 @@ const ProductList: React.FC = () => {
         </div>
       </div>
       // 
-      ) : null} 
+      {/* ) : null}  */}
     </div>
   );
 };
