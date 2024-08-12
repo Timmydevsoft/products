@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 src/component/Todo.tsx
-src/component/Product.tsx
+
