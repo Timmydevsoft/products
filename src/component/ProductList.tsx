@@ -75,16 +75,16 @@ const ProductList: React.FC = () => {
 
   // console.log("working");
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setScreen(window.innerWidth);
-  //   };
-  //   window.addEventListener("resize", handleResize);
+  useEffect(() => {
+    const handleResize = () => {
+      setScreen(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
 
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, [screen]);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [screen]);
   if(status === "loading"){
     return(
       <div>Loading...</div>
