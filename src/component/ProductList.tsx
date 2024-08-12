@@ -61,7 +61,7 @@ const ProductList: React.FC = () => {
       }))
    .catch (err=>{
     console.log(err);
-    setError(true);
+    setError(err);
    }) 
   };
 
