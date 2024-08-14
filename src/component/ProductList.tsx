@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import cart from "../static/icon-add-to-cart.svg";
-import { nanoid } from "nanoid";
+// import { nanoid } from "nanoid";
 import increase from "../static/icon-increment-quantity.svg";
 import decrease from "../static/icon-decrement-quantity.svg";
 import "../index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { orderAction } from "../store/slice";
-import { Prop, Part } from "../store/mode";
+import { /*Prop,*/ Part } from "../store/mode";
 
 const ProductList: React.FC = () => {
   let initialScreen: number = window.innerWidth;
   const [screeen, setScreen] = React.useState<number>(initialScreen);
-  const [error, setError] = React.useState<any>(null);
+  // const [error, setError] = React.useState<any>(null);
   const dispatch = useDispatch();
   const dataBase = useSelector((state: any) => state.cart.dataBase);
   const status = useSelector((state: any) => state.cart.status);
 
-  useEffect(
+  /*useEffect(
     () => () => {
       const fetchData = async () => {
         dispatch(orderAction.fetchStart());
@@ -48,7 +48,7 @@ const ProductList: React.FC = () => {
       fetchData();
     },
     [dispatch]
-  );
+  );*/
 
   useEffect(() => {
     const handleResize = () => {
@@ -68,9 +68,9 @@ const ProductList: React.FC = () => {
     return <div>Failed</div>;
   }
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+  // if (error) {
+  //   return <div>{error}</div>;
+  // }
 
   const handleIncrement = (id: string) => {
     dispatch(orderAction.increment(id));
@@ -99,7 +99,7 @@ const ProductList: React.FC = () => {
                         item.status === true ? "active-product" : ""
                       }`}
                       src={
-                        screeen <= 500
+                        screeen <= 420
                           ? item.image.mobile
                           : screeen <= 768
                           ? item.image.tablet
