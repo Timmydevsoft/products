@@ -1,8 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Part } from "./mode";
+import data from "./data.json"
+import { nanoid } from "nanoid";
 
 const initialState = {
-  dataBase: [] as Part[],
+  dataBase: data.map((item)=>{
+    return{
+      ...item,
+      totalPrice: item.price,
+      status: false,
+      id: nanoid(),
+      quantity: 1,
+    }
+  }),
   orderList: [] as Part[],
   openModal: false,
   reset: false,
