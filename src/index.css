@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,9 +7,13 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  font-size:  1rem;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  /* background-color: hsl(13, 31%, 94%); */
+  background-color: #f4edeb;
+  font-family: "Red Hat Text", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 

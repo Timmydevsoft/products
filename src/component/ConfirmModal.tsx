@@ -49,7 +49,7 @@ const ConfirmModal: React.FC = () => {
             ))}
 
             <div className="flex items-center p-4 justify-between">
-              <span>Order total</span>
+              <span className="text-[#ad8985]">Order total</span>
               <span className="text-2xl text-burnt-rose font-bold">
                 $
                 {orderData.reduce(
